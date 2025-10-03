@@ -1,0 +1,5 @@
+set cartoon_fancy_helices, 1
+set ray_trace_mode, 1
+set ray_trace_color, black
+set ambient, 0.4
+set antialias, 2

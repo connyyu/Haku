@@ -1,0 +1,10 @@
+util.cbaw;
+sele TOM20_HUMAN, (chain C+D and 9eih) or (chain D and 9eii) or (chain D and 9eij); color carbon, TOM20_HUMAN;
+sele VDAC2_HUMAN, (chain E+F and 9eih) or (chain F and 9eii) or (chain E+F and 9eij); color cyan, VDAC2_HUMAN;
+sele TOM40_HUMAN, (chain H+I+J+G and 9eih) or (chain J+I and 9eii) or (chain J+I and 9eij); color lightmagenta, TOM40_HUMAN;
+sele TOM5_HUMAN, (chain K+L+Z+Y and 9eih) or (chain Z+L and 9eii) or (chain K+L+Z and 9eij); color yellow, TOM5_HUMAN;
+sele TOM7_HUMAN, (chain M+N+W+X and 9eih) or (chain N+X and 9eii) or (chain N+X and 9eij); color salmon, TOM7_HUMAN;
+sele TOM6_HUMAN, (chain U+V+P+O and 9eih) or (chain V+P and 9eii) or (chain V+P and 9eij); color slate, TOM6_HUMAN;
+sele TOM22_HUMAN, (chain Q+R+S+T and 9eih) or (chain R+T and 9eii) or (chain R+T and 9eij); color orange, TOM22_HUMAN;
+sele PINK1_HUMAN, (chain A+B and 9eih) or (chain B and 9eii) or (chain B and 9eij); color deepteal, PINK1_HUMAN;
+deselect; util.cnc
