@@ -29,36 +29,72 @@ st.markdown(
     ##### -- Useful PyMOL Commands --  
 """
 )    
+import streamlit as st
+import os
+
+st.markdown("**For selecton**")
+
+col1, col2 = st.columns([1, 2])
+with col1:
+    st.write("")
+    st.write("_Highlight disulfides_")
+with col2:
+    st.code("select disulfides, br. CYS/SG and bound_to CYS/SG")
+
+col1, col2 = st.columns([1, 2])
+with col1:
+    st.write("")
+    st.write("_Highlight ligand (e.g. Zn)_")
+with col2:
+    st.code("sele ZN, hetatm and resn zn")
+
+col1, col2 = st.columns([1, 2])
+with col1:
+    st.write("")
+    st.write("_List the selected residues_")
+with col2:
+    st.code("iterate sele and name CA, print(f'{chain}:{resi}:{resn}')")
+
+col1, col2 = st.columns([1, 2])
+with col1:
+    st.write("_Renumbering residues (e.g. obj01)_")
+with col2:
+    st.code("alter obj01 and chain A, resi=str(int(resi)+12)")
+
+st.markdown("**For visualisation**")
+
 col1, col2 = st.columns([1, 2])
 with col1:
     st.write("")
     st.write("_Remove solvent_")
-    st.write("")
-    st.write("")
-    st.write("_Highlight disulfides_")
-    st.write("")
-    st.write("")
-    st.write("_Highlight ligand (e.g. Zn)_")
-    st.write("")
+with col2:
+    st.code("remove solvent")
+
+col1, col2 = st.columns([1, 2])
+with col1:
     st.write("")
     st.write("_Label residue (e.g. 90)_")
-    st.write("")
+with col2:
+    st.code("label n. CA and i. 90, '%s %s' % (resn, resi)")
+
+col1, col2 = st.columns([1, 2])
+with col1:
     st.write("_Colour pLDDT score using AlphaFold2 colour scheme_")
-    st.write("")
+with col2:
+    st.code("spectrum b, rainbow_rev")
+
+st.markdown("**For publication**")
+
+col1, col2 = st.columns([1, 2])
+with col1:
     st.write("")
     st.write("_Generate pretty figures_")
     st.write("")
 with col2:
-    st.code("remove solvent")
-    st.code("select disulfides, br. CYS/SG and bound_to CYS/SG")
-    st.code("sele zn, hetatm and resn zn")
-    st.code("label n. CA and i. 90, '%s %s' % (resn, resi)")
-    st.write("")
-    st.code("spectrum b, rainbow_rev")
     pretty_code_file_path = os.path.join(output_dir, 'pretty_code.txt')
     with open(pretty_code_file_path, 'r') as file:
         pretty_code = file.read()
-        st.code(pretty_code)
+    st.code(pretty_code)
 
 st.markdown(
     """
