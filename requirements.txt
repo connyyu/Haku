@@ -1,7 +1,7 @@
 streamlit
 pandas
 requests
-biolib-bio
+pybiolib
 py3Dmol
 matplotlib
 aiohttp
