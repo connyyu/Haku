@@ -19,7 +19,7 @@ This repository contains a Streamlit app called **Haku**, which is a collection 
 ## Prerequisites
 
 - **Python 3.x**
-- Python libraries: `streamlit`, `pandas`, `requests`, `biolib`, `py3Dmol`, `matplotlib`, `aiohttp`, `tenacity`
+- Python libraries: `streamlit`, `pandas`, `requests`, `pybiolib`, `py3Dmol`, `matplotlib`, `aiohttp`, `tenacity`
     
 ## Author
 
