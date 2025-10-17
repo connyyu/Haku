@@ -207,7 +207,7 @@ def run_deeptmhmm_biolib(sequence):
     try:
         deeptmhmm = biolib.load('DTU/DeepTMHMM')
         deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_file}')
-        deeptmhmm_job.save_files(output_dir)
+        deeptmhmm_job.save_files(output_dir, overwrite=True)
 
         status_container.info("📊 Processing prediction results...")
         progress_bar.progress(80)
