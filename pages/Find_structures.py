@@ -260,7 +260,7 @@ if hasattr(st.session_state, 'data') and st.session_state.data is not None:
     with col1:
         if available_pdbs:
             available_links = ", ".join([f"[{pdb_code}](https://www.ebi.ac.uk/pdbe/entry/pdb/{pdb_code.lower()})" for pdb_code in available_pdbs])
-            st.markdown(f"In UniProt:<br>{available_links}", unsafe_allow_html=True)
+            st.markdown(f"Available in UniProt:<br>{available_links}", unsafe_allow_html=True)
         if unavailable_pdbs:
             unavailable_links = ", ".join([f"[{pdb_code}](https://www.ebi.ac.uk/pdbe/entry/pdb/{pdb_code.lower()})" for pdb_code in unavailable_pdbs])
             st.markdown(f"Not yet available in UniProt:<br>{unavailable_links}", unsafe_allow_html=True)
