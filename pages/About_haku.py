@@ -47,7 +47,9 @@ st.markdown(
     -- Navigate protein structures in a 3D viewer.
     - **Transmembrane annotations**
     -- Visualise transmembrane annotation on a protein structure.
-    
+    - **Similar structures**
+    -- Find similar proteins with experimental structures.
+
     #### Resources
     - Protein database: [UniProt](https://https://www.uniprot.org/)
     - Structure database: [PDBe](https://www.ebi.ac.uk/pdbe/)
