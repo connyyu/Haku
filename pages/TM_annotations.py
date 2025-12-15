@@ -1,5 +1,4 @@
 import streamlit as st
-import biolib
 import py3Dmol
 import streamlit.components.v1 as components
 import requests
@@ -43,10 +42,16 @@ with st.sidebar:
     pdb_code = st.text_input("Enter PDB code:", default_pdb).strip()
     fetch_pdb_button = st.button("Show structure")
     st.sidebar.markdown("[UniProt annotation](#pdb-uniprot)")
+    st.sidebar.markdown("[Manual annotation](#pdb-manual)")
     st.sidebar.markdown("[DeepTMHMM prediction](#pdb-tmhmm)")
     st.sidebar.markdown("[DeepTMHMM plot](#tmhmm_plot)")
     guide_tm = st.checkbox("Instructions", value=st.session_state.get("guide_tm", False))
     st.session_state.guide_tm = guide_tm
+
+if "pred_manual" not in st.session_state:
+    st.session_state.pred_manual = None
+if "manual_tm_helices" not in st.session_state:
+    st.session_state.manual_tm_helices = ""
 
 st.markdown("<a name='top_title'></a>", unsafe_allow_html=True)
 st.markdown("#### Visualise transmembrane annotation on a protein structure.")
@@ -63,8 +68,10 @@ if st.session_state.get('guide_tm'):
     In this order:
     1. Enter UniProt AC and **Fetch data**
     2. Enter PDB code and **Show structure**
+
+    Manually update the annotations and visualise the changes on the structure.
     
-    Run a DeepTMHMM prediction using the **Run TM prediction** button (optional).  
+    Run a DeepTMHMM prediction using the **Run TM prediction** button.  
     Use the **Show structure with TM prediction** button to refresh the viewer.  
     """)
     
@@ -181,10 +188,13 @@ def extract_tm_helices(gff3_file):
                     ss_tag = "beta"
     return tm_helices, ss_tag
 
+# Function to run DeepTMHMM prediction
 def run_deeptmhmm_biolib(sequence):
+    # Create status containers
     status_container = st.empty()
     progress_bar = st.progress(0)
     
+    # Step 1: Clear old results
     status_container.info("🧹 Clearing previous results...")
     progress_bar.progress(10)
     time.sleep(0.5)
@@ -192,45 +202,51 @@ def run_deeptmhmm_biolib(sequence):
     output_dir = os.path.join(script_dir, "biolib_results")
     clear_old_results()
 
+    # Step 2: Write FASTA file
     status_container.info("📝 Writing sequence to FASTA file...")
     progress_bar.progress(20)
     time.sleep(0.5)
 
-    fasta_file = os.path.join(script_dir, "input.fasta")
+    # Write the sequence to a temporary FASTA file
     with open(fasta_file, "w") as f:
         f.write(f">sequence\n{sequence}")
-
+    
+    # Step 3: Run DeepTMHMM prediction in the output directory
     status_container.info("🔬 Running DeepTMHMM prediction... This may take a few minutes.")
-    progress_bar.progress(40)
-    time.sleep(0.5)
-
+    progress_bar.progress(30)
+    
+    command = f"biolib run DTU/DeepTMHMM --fasta {fasta_file}"
+    
     try:
-        deeptmhmm = biolib.load('DTU/DeepTMHMM')
-        deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_file}')
-        deeptmhmm_job.save_files(output_dir, overwrite=True)
-
+        result = subprocess.run(command, shell=True, capture_output=True, text=True, cwd=script_dir)
+        
+        # Step 4: Processing results
         status_container.info("📊 Processing prediction results...")
         progress_bar.progress(80)
         time.sleep(0.5)
-
-        gff3_path = os.path.join(output_dir, "TMRs.gff3")
-        if os.path.exists(gff3_path):
+        
+        if result.returncode == 0:
+            gff3_path = os.path.join(output_dir, "TMRs.gff3")
             tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            
+            # Step 5: Complete
             status_container.success("✅ DeepTMHMM prediction completed successfully!")
             progress_bar.progress(100)
             time.sleep(1)
+            
+            # Clear status indicators after success
             status_container.empty()
             progress_bar.empty()
+            
             return tm_helices, output_dir
         else:
-            status_container.error("❌ Prediction ran but output file is missing.")
+            status_container.error(f"❌ Error running DeepTMHMM: {result.stderr}")
             progress_bar.empty()
             return None, None
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         progress_bar.empty()
         return None, None
-
 
 # Function to read demo DeepTMHMM prediction for default_unp
 def read_demo_results():
@@ -324,7 +340,21 @@ def get_pred_from_file():
             if len(lines) > 2:
                 pred = lines[2].strip()
     return pred
-    
+
+# Generate PyMOL command from manual TM annotations
+def generate_pymol_command(pymol_name, residue_ranges):
+    pymol_command = f"util.cbaw {pymol_name}"
+    color_index = 1
+    for (start, end) in residue_ranges:
+        pymol_command += f"; color {color_index}, {pymol_name} and resi {start}-{end}"
+        color_index += 1
+        pymol_command = pymol_command.replace("color 1,", "color 31,")
+        pymol_command = pymol_command.replace("color 7,", "color 30,")
+    return pymol_command
+
+# Display results from here
+# -----------------------------------------------------------------------------
+
 col1, col2, col3 = st.columns([1, 1, 2])
 with col1:
     st.markdown(f'UniProt entry: <a href="https://rest.uniprot.org/uniprotkb/{uniprot_ac}.txt" target="_blank">{uniprot_ac}</a>', unsafe_allow_html=True)
@@ -393,6 +423,7 @@ with col2:
 col1, col2 = st.columns([3, 2])
 
 # Display PDB structure with UniProt TM annotations (output)
+# -----------------------------------------------------------------------------
 with col1:
     if pdb_code == default_pdb:
         pdb_structure = fetch_pdb_structure(default_pdb)
@@ -412,6 +443,7 @@ with col1:
     st.caption(f"PDB:{pdb_code} ({chain_ids}) with UniProt annotations for {uniprot_ac}.")
 
 # Display UniProt TM annotations (output)
+# -----------------------------------------------------------------------------
 with col2:
     output_str = ""
     tm_helices_uniprot = st.session_state.get("tm_helices_uniprot", [])
@@ -429,7 +461,82 @@ with col2:
     '</div>', unsafe_allow_html=True)
     else:
         st.warning("No TM annotation found in UniProt.")
-        
+
+# PDB with manual annotation
+# -----------------------------------------------------------------------------
+st.markdown("<a name='pdb-manual'></a>", unsafe_allow_html=True)
+col1, col2 = st.columns([3, 2])
+with col1:
+    st.markdown("##### &nbsp;&nbsp;&nbsp;Structure")
+with col2:
+    st.markdown("##### Manual annotation")
+col1, col2 = st.columns([3, 2])
+with col1:
+    pred_manual = st.session_state.get("pred_manual", None)
+    sequence = st.session_state.get("sequence", None)
+    pdb_structure = st.session_state.get("pdb_structure", None) or fetch_pdb_structure(default_pdb)
+    if pred_manual and sequence:
+        af2_tag = 0
+        viewpdb(pdb_structure, pred_manual, sequence, af2_tag)
+    else:
+        pred_empty = ["g"] * len(sequence) if sequence else []
+        af2_tag = 0
+        viewpdb(pdb_structure, pred_empty, sequence, af2_tag)
+with col2:
+    output_str = ""
+    manual_tm_helices = st.session_state.get("manual_tm_helices", "")
+    if tm_helices_uniprot:
+        st.markdown(f"```\n{manual_tm_helices}\n```")
+        st.markdown(
+            '<div style="display: flex; padding: 8px; width: 100%;">'
+            '<span style="background-color: white; padding: 2px 5px; text-align: center; font-size: 14px;">Key: </span>'
+            '<span style="background-color: powderblue; padding: 2px 5px; text-align: center; font-size: 14px;">Outside</span>'
+            '<span style="background-color: pink; padding: 2px 5px; text-align: center; font-size: 14px;">Inside</span>'
+            '</div>', unsafe_allow_html=True)
+with st.form(key='manual_annotation_form'):
+    col1, col2 = st.columns([3, 2])
+    tm_helices_uniprot = st.session_state.get("tm_helices_uniprot", [])
+    input_tm = ""
+    if tm_helices_uniprot:
+        for start, end in tm_helices_uniprot:
+            output_str += f"FT TRANSMEM  {start}  {end}\n"
+        input_tm = f"{output_str}\n"
+    with col1:
+        manual_annotations_input = st.text_area("Input manual annotation:", height=100, value=input_tm)
+    with col2:
+        st.markdown("")
+        st.markdown("")
+        submit_annotation_button = st.form_submit_button("Update annotation")
+        st.markdown("<p style='font-size: 14px;'>Click twice to load the new annotation.</p>", unsafe_allow_html=True)
+if submit_annotation_button:
+    manual_tm_helices = []
+    lines = manual_annotations_input.splitlines()
+    for line in lines:
+        match = re.match(r"FT TRANSMEM\s+(\d+)\s+(\d+)", line.strip())
+        if match:
+            start, end = map(int, match.groups())
+            manual_tm_helices.append((start, end))
+    pred_manual = ['g'] * len(st.session_state.sequence)
+    for start, end in manual_tm_helices:
+        for i in range(start - 1, end):
+            pred_manual[i] = 'M'
+    st.session_state.pred_manual = pred_manual
+    st.session_state.manual_tm_helices = manual_annotations_input
+    st.session_state.pdb_structure = st.session_state.get("pdb_structure", None) or fetch_pdb_structure(default_pdb)
+pymol_name = st.text_input("Enter a PDB/model name to generate PyMOL command from manual annotations:")
+manual_annotations_input = st.session_state.get("manual_tm_helices", "")
+manual_tm_helices = []
+if manual_annotations_input.strip():
+    lines = manual_annotations_input.strip().splitlines()
+    for line in lines:
+        match = re.match(r"FT TRANSMEM\s+(\d+)\s+(\d+)", line.strip())
+        if match:
+            start, end = map(int, match.groups())
+            manual_tm_helices.append((start, end))
+if pymol_name:
+    pymol_commands = generate_pymol_command(pymol_name, manual_tm_helices)
+    st.code(pymol_commands)
+
 # PDB with TM prediction
 # -----------------------------------------------------------------------------
 

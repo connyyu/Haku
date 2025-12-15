@@ -11,6 +11,7 @@ pages = [
         st.Page("pages/View_interactions.py", title="View the interactions"),
         st.Page("pages/Structure_viewer.py", title="3D viewer"),
         st.Page("pages/TM_annotations.py", title="TM annotations"),
+        st.Page("pages/Homologs.py", title="Similar structures"),
         st.Page("pages/Pymol_commands.py", title="PyMOL commands"),
         st.Page("pages/About_haku.py", title="About Haku"),
 ]
@@ -18,6 +19,12 @@ pages = [
 pg = st.navigation(pages, position="top", expanded=True)
 pg.run()
 
+st.markdown("""
+    <a href='https://github.com/connyyu' target='_blank'>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1024px-Octicons-mark-github.svg.png' 
+        style='position: fixed; bottom: 5%; left: 10%; transform: translateX(-50%); width: 30px; height: 30px;'/>
+    </a>
+""", unsafe_allow_html=True)
 
 
 
