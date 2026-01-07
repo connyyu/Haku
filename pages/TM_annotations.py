@@ -1294,6 +1294,8 @@ def viewpdb(structure, pred, sequence, af2_tag):
 # Read the TM prediction file (predicted_topologies.3line)
 def get_pred_from_file():
     pred = ""
+    if output_dir is None:
+        return pred
     file_path = os.path.join(output_dir, "predicted_topologies.3line")
     if os.path.exists(file_path):
         with open(file_path, "r") as f:
