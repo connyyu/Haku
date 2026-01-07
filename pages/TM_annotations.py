@@ -201,6 +201,7 @@ def run_deeptmhmm_biolib(sequence):
     time.sleep(0.5)
 
     output_dir = os.path.join(script_dir, "biolib_results")
+    st.session_state.output_dir = output_dir
     clear_old_results()
 
     # Step 2: Write FASTA file
@@ -209,7 +210,7 @@ def run_deeptmhmm_biolib(sequence):
     time.sleep(0.5)
 
     # Write the sequence to a temporary FASTA file
-    fasta_path = os.path.join(script_dir, "sequence.fasta")
+    fasta_path = os.path.join(output_dir, "sequence.fasta")
     with open(fasta_file, "w") as f:
         f.write(f">sequence\n{sequence}")
     
@@ -330,8 +331,7 @@ def viewpdb(structure, pred, sequence, af2_tag):
 # Read the TM prediction file (predicted_topologies.3line)
 def get_pred_from_file():
     pred = ""
-    if output_dir is None:
-        return pred
+    output_dir = st.session_state.get("output_dir")
     file_path = os.path.join(output_dir, "predicted_topologies.3line")
     if os.path.exists(file_path):
         with open(file_path, "r") as f:
