@@ -1,5 +1,6 @@
 import streamlit as st
 import py3Dmol
+import biolib
 import streamlit.components.v1 as components
 import requests
 import subprocess
@@ -250,7 +251,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -283,7 +284,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -316,7 +317,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -349,7 +350,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -382,7 +383,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -415,7 +416,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -448,7 +449,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -481,7 +482,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -514,7 +515,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -547,7 +548,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -580,7 +581,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -613,7 +614,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -646,7 +647,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -679,7 +680,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -712,7 +713,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -745,7 +746,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -778,7 +779,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -811,7 +812,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -844,7 +845,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -877,7 +878,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -910,7 +911,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -943,7 +944,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -976,7 +977,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1009,7 +1010,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1042,7 +1043,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1075,7 +1076,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1108,7 +1109,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1141,7 +1142,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1174,7 +1175,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
     # Step 3: Run DeepTMHMM via biolib CLI
     status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
     progress_bar.progress(40)
@@ -1207,7 +1208,7 @@ def run_deeptmhmm_biolib(sequence):
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
         return None, None
-        
+
 
 # Function to read demo DeepTMHMM prediction for default_unp
 def read_demo_results():
