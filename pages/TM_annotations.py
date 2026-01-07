@@ -208,45 +208,1006 @@ def run_deeptmhmm_biolib(sequence):
     time.sleep(0.5)
 
     # Write the sequence to a temporary FASTA file
+    fasta_path = os.path.join(script_dir, "input.fasta")
     with open(fasta_file, "w") as f:
         f.write(f">sequence\n{sequence}")
     
     # Step 3: Run DeepTMHMM prediction in the output directory
     status_container.info("🔬 Running DeepTMHMM prediction... This may take a few minutes.")
-    progress_bar.progress(30)
+    progress_bar.progress(40)
     
     command = f"biolib run DTU/DeepTMHMM --fasta {fasta_file}"
     
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
     try:
-        result = subprocess.run(command, shell=True, capture_output=True, text=True, cwd=script_dir)
-        
-        # Step 4: Processing results
-        status_container.info("📊 Processing prediction results...")
-        progress_bar.progress(80)
-        time.sleep(0.5)
-        
-        if result.returncode == 0:
-            gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
             tm_helices, ss_tag = extract_tm_helices(gff3_path)
-            
-            # Step 5: Complete
             status_container.success("✅ DeepTMHMM prediction completed successfully!")
             progress_bar.progress(100)
             time.sleep(1)
-            
-            # Clear status indicators after success
             status_container.empty()
             progress_bar.empty()
-            
             return tm_helices, output_dir
         else:
-            status_container.error(f"❌ Error running DeepTMHMM: {result.stderr}")
-            progress_bar.empty()
+            status_container.error("❌ Prediction ran but output file is missing.")
             return None, None
+            
     except Exception as e:
         status_container.error(f"❌ Unexpected error: {e}")
-        progress_bar.empty()
         return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
+    # Step 3: Run DeepTMHMM via biolib CLI
+    status_container.info("Running DeepTMHMM prediction... This may take a few minutes.")
+    progress_bar.progress(40)
+
+    deeptmhmm = biolib.load('DTU/DeepTMHMM')
+    deeptmhmm_job = deeptmhmm.cli(args=f'--fasta {fasta_path}')
+    deeptmhmm_job.save_files(output_dir)
+    print(f"Job object type: {type(deeptmhmm_job)}")
+    print(f"Job object attributes: {dir(deeptmhmm_job)}")
+    
+    # Step 4: Check results
+    status_container.info("Processing prediction results...")
+    progress_bar.progress(80)
+    time.sleep(0.5)
+    
+    try:
+        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        if os.path.exists(gff3_path):
+            tm_helices, ss_tag = extract_tm_helices(gff3_path)
+            status_container.success("✅ DeepTMHMM prediction completed successfully!")
+            progress_bar.progress(100)
+            time.sleep(1)
+            status_container.empty()
+            progress_bar.empty()
+            return tm_helices, output_dir
+        else:
+            status_container.error("❌ Prediction ran but output file is missing.")
+            return None, None
+            
+    except Exception as e:
+        status_container.error(f"❌ Unexpected error: {e}")
+        return None, None
+        
 
 # Function to read demo DeepTMHMM prediction for default_unp
 def read_demo_results():
