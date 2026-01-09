@@ -60,7 +60,6 @@ st.markdown("#### Visualise transmembrane annotation on a protein structure.")
 output_dir = os.path.join(script_dir, "biolib_results")
 demo_dir = os.path.join(script_dir, "demo_results") # Use demo_results for Q63008
 pdb_dir = os.path.join(script_dir, "scripts")
-#fasta_file = os.path.join(output_dir, "sequence.fasta")
 
 # Instructions
 # -----------------------------------------------------------------------------
@@ -210,7 +209,7 @@ def run_deeptmhmm_biolib(sequence):
 
     # Write the sequence to a temporary FASTA file
     fasta_path = os.path.join(script_dir, "input.fasta")
-    with open(fasta_file, "w") as f:
+    with open(fasta_path, "w") as f:
         f.write(f">sequence\n{sequence}")
     
     # Step 3: Run DeepTMHMM prediction in the output directory
