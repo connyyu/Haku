@@ -1,7 +1,6 @@
 import streamlit as st
 import sys
 import os
-from scripts import pdb_chainID
 import biolib
 import py3Dmol
 import streamlit.components.v1 as components
@@ -22,9 +21,16 @@ st.set_page_config(page_title="Haku - Transmembrane annotations", page_icon="ðŸ’
 default_unp = 'Q63008'
 default_pdb = '7UV0'
 
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Add the scripts subdirectory to Python path
+scripts_dir = os.path.join(script_dir, "scripts")
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
+
 # Import the pdb_chainID function from the scripts folder
 try:
-    from scripts import pdb_chainID
+    import pdb_chainID
 except ImportError as e:
     st.error(f"Failed to import pdb_chainID module: {e}")
 
@@ -51,7 +57,6 @@ if "manual_tm_helices" not in st.session_state:
 st.markdown("<a name='top_title'></a>", unsafe_allow_html=True)
 st.markdown("#### Visualise transmembrane annotation on a protein structure.")
 
-script_dir = os.path.dirname(os.path.abspath(__file__)) # location of pages directory
 output_dir = os.path.join(script_dir, "biolib_results")
 demo_dir = os.path.join(script_dir, "demo_results") # Use demo_results for Q63008
 pdb_dir = os.path.join(script_dir, "scripts")
