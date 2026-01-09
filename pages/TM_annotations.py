@@ -506,7 +506,6 @@ with st.form(key='manual_annotation_form'):
         st.markdown("")
         st.markdown("")
         submit_annotation_button = st.form_submit_button("Update annotation")
-        st.markdown("<p style='font-size: 14px;'>Click twice to load the new annotation.</p>", unsafe_allow_html=True)
 if submit_annotation_button:
     manual_tm_helices = []
     lines = manual_annotations_input.splitlines()
