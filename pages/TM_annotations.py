@@ -521,6 +521,7 @@ if submit_annotation_button:
             pred_manual[i] = 'M'
     st.session_state.pred_manual = pred_manual
     st.session_state.manual_tm_helices = manual_annotations_input
+    st.rerun()
     st.session_state.pdb_structure = st.session_state.get("pdb_structure", None) or fetch_pdb_structure(default_pdb)
 pymol_name = st.text_input("Enter a PDB/model name to generate PyMOL command from manual annotations:")
 manual_annotations_input = st.session_state.get("manual_tm_helices", "")
