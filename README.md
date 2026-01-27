@@ -1,6 +1,6 @@
 # Haku, the Protein Structure Navigator.
 
-This repository contains a Streamlit app called **Haku**, which is a collection of tools to navigate proteins and their structures.
+This repository contains a Streamlit app called **Haku**, a collection of tools to navigate protein structures.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://haku3d.streamlit.app/)
 
