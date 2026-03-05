@@ -13,7 +13,7 @@ st.sidebar.markdown(
     """
     <b>Conny WH Yu</b>
     <p style="font-size: 15px; line-height: 1.8;">
-    🎓 Structural biology and bioinformatics | 🧑🏻‍🔬 10+ years at the bench | 🧑🏻‍💻 Data curation | 🎯 Translate protein structure into functional understanding
+    🎓 Data Science and Structural Biology | 🧑🏻‍🔬 10+ years at the bench | 🧑🏻‍💻 Data curation | 🎯 Translate protein structure into functional understanding
     🌐 <a href='https://github.com/connyyu' target='_blank' style="font-size: 14px; color: #666; text-decoration: none;">GitHub profile</a>
     </p>
     """, 
