@@ -11,6 +11,7 @@ This repository contains a Streamlit app called **Haku**, a collection of tools 
 - View interactions — View all the ligand-protein interactions in the structure(s).
 - 3D viewer — Navigate protein structures in a 3D viewer.
 - Transmembrane annotations — Visualise transmembrane annotation on a protein structure.
+- Similar structures — Find similar proteins with experimental structures.
   
 ### Input
 - **UniProt accession**
