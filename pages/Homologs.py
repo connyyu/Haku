@@ -30,8 +30,8 @@ st.markdown("#### Find similar proteins with experimental structures.")
 if st.session_state.get('guide_homolog'):
     st.info("""
     Input:&emsp;**[UniProt AC](https://www.uniprot.org/)**\n\n
-    Output:\n
-    * Homologs (entries with the same UniProt ID prefix)\n
+    Output:
+    * Homologs (entries with the same UniProt ID prefix)
     * UniProt entries with experimentally determined structures from UniRef90 and UniRef50 clusters
     """)
 

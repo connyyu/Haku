@@ -41,11 +41,11 @@ st.markdown("#### List all the UniProt protein entries in the structure(s).")
 if st.session_state.get('guide_protein'):
     st.info("""
     Input:&emsp;**one or multiple PDB codes**\n\n
-    Output:\n
-    * all protein components mapped in UniProt\n
-    * resolution and method of each structure\n
-    * name of each protein and links to UniProt\n
-    * all the bound ligands / modifications\n
+    Output:
+    * all protein components mapped in UniProt
+    * resolution and method of each structure
+    * name of each protein and links to UniProt
+    * all the bound ligands / modifications
     * PyMOL command to colour and label each protein
     """)
 
