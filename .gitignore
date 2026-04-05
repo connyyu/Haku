@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.cif
+pages/biolib_results/*.biolib-renamed.*
+pages/scripts/__pycache__/
+pages/biolib_results/
