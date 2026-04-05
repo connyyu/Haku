@@ -9,9 +9,9 @@ This repository contains a Streamlit app called **Haku**, a collection of tools 
 - Find structures — Find all the structures of a protein using its UniProt AC.
 - List proteins — List all the UniProt protein entries in the structure(s).
 - View interactions — View all the ligand-protein interactions in the structure(s).
-- 3D viewer — Navigate protein structures in a 3D viewer.
 - Transmembrane annotations — Visualise transmembrane annotation on a protein structure.
 - Similar structures — Find similar proteins with experimental structures.
+- 3D viewer — Navigate protein structures in a 3D viewer (py3dmol / Mol*).
   
 ### Input
 - **UniProt accession**
@@ -20,9 +20,10 @@ This repository contains a Streamlit app called **Haku**, a collection of tools 
 ## Prerequisites
 
 - **Python 3.x**
-- Python libraries: `streamlit`, `pandas`, `requests`, `pybiolib`, `py3Dmol`, `matplotlib`, `aiohttp`, `tenacity`
+- Python libraries: `streamlit`, `pandas`, `requests`, `pybiolib`, `matplotlib`, `aiohttp`, `tenacity`, `py3Dmol`
     
 ## Author
 
 - **Conny Yu** – [GitHub Profile](https://github.com/connyyu)  
+  Haku 2.2 _April 2026_
   Haku 2.0 _October 2025_
