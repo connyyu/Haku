@@ -117,6 +117,7 @@ with st.sidebar:
     st.sidebar.markdown("[Structures in PDBe](#structures)")
     st.sidebar.markdown("[Associated literature](#associated-literature-pmids)")
     st.sidebar.markdown("[PyMOL commands](#pymol-fetch-command)")
+    st.sidebar.markdown("[3D viewer ↗](https://haku3dviewer.netlify.app/)")
     fs_guide = st.checkbox("Instructions", value=st.session_state.get("fs_guide", True))
     st.session_state.fs_guide = fs_guide
 
@@ -130,6 +131,8 @@ if st.session_state.get("fs_guide"):
     * all associated structures (PDBs)
     * associated literature (PMIDs)
     * PyMOL command to download the structures
+    
+    Open **[Haku 3D viewer](https://haku3dviewer.netlify.app/)** for visualisation in Mol*.
     """)
 
 # ---------------------------------------------------------------------------

@@ -63,6 +63,7 @@ with st.sidebar:
     st.sidebar.markdown("[Proteins](#simplified-data)")
     st.sidebar.markdown("[Structures](#structure)")
     st.sidebar.markdown("[PyMOL commands](#pymol-commands)")
+    st.sidebar.markdown("[3D viewer ↗](https://haku3dviewer.netlify.app/)")
     sv_guide = st.checkbox("Instructions", value=st.session_state.get("sv_guide", True))
     st.session_state.sv_guide = sv_guide
 
@@ -76,8 +77,11 @@ if st.session_state.get("sv_guide"):
     Output:
     * all protein components mapped in UniProt
     * resolution and method of each structure
-    * **selected protein shown in a 3D viewer**
+    * **selected protein shown in a 3D viewer using py3dmol**
     * PyMOL command to colour and label each protein in the structures
+            
+    Open **[Haku 3D viewer](https://haku3dviewer.netlify.app/)** for visualisation in Mol*.
+
     """)
 
 # ---------------------------------------------------------------------------
