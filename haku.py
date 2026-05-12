@@ -12,6 +12,7 @@ pages = [
     st.Page("pages/TM_annotations.py",       title="TM annotations"),
     st.Page("pages/Homologs.py",             title="Similar structures"),
     st.Page("pages/Structure_viewer.py",     title="3D viewer"),
+    st.Page("pages/Seq_alignment.py",        title="Align sequences"),
     st.Page("pages/Pymol_commands.py",       title="PyMOL commands"),
     st.Page("pages/About_haku.py",           title="About Haku"),
 ]
