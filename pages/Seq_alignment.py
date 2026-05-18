@@ -127,15 +127,20 @@ def fetch_pdbe_data(pdb_id, chain_id):
     fasta_res = requests.get(fasta_url, timeout=10)
     fasta_res.raise_for_status()
     
-    current_chain, sequences = None, {}
+    current_chains, sequences = [], {}
     for line in fasta_res.text.strip().splitlines():
         if line.startswith(">"):
             parts = line.split("|")
             if len(parts) >= 3:
-                current_chain = parts[2].strip()
-                sequences[current_chain] = ""
-        elif current_chain:
-            sequences[current_chain] += line.strip()
+                # Handle multi-chain headers like: >pdb|8zt3|A B C D E F
+                current_chains = parts[2].strip().split()
+                for c in current_chains:
+                    sequences[c] = ""
+            else:
+                current_chains = []
+        elif current_chains:
+            for c in current_chains:
+                sequences[c] += line.strip()
     
     seq = sequences.get(chain_id)
     if not seq:
