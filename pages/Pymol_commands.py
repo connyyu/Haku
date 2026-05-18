@@ -12,14 +12,16 @@ output_dir = os.path.join(script_dir, "chain_info")
 
 st.sidebar.markdown("")
 st.sidebar.markdown("")
-st.sidebar.markdown("### Author")
+st.sidebar.markdown("### PyMOL plugin")
 st.sidebar.markdown(
     """
-    <b>Conny WH Yu</b>
+    <b>Automatic protein labelling</b>
     <p style="font-size: 15px; line-height: 1.8;">
-    🎓 Data Science and Structural Biology | 🧑🏻‍🔬 10+ years at the bench | 🧑🏻‍💻 Data curation | 🎯 Translate protein structure into functional understanding
-    🌐 <a href='https://github.com/connyyu' target='_blank' style="font-size: 14px; color: #666; text-decoration: none;">GitHub profile</a>
-    </p>
+    Install the PyMOL plugin to automatically label protein chains by their UniProt IDs in PyMOL.<br><br>
+    🪄 <a href='https://github.com/connyyu/pymol_sifts' target='_blank' style="font-size: 14px; color: #00008B; text-decoration: none; font-weight: bold;">pymol_sifts</a>
+    <a href='https://github.com/connyyu/pymol_sifts' target='_blank'>
+    <img src='https://raw.githubusercontent.com/connyyu/pymol_sifts/main/pymol_sifts.gif'
+         style='width: 90%; border-radius: 6px; margin-top: 4px;'></a></p>
     """,
     unsafe_allow_html=True
 )
