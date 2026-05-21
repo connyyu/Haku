@@ -8,8 +8,6 @@ st.set_page_config(page_title="Haku - Similar structures", page_icon="💮")
 
 default_unp = 'Q13002'
 
-# Fix #1: use unambiguous session state keys (homolog_*) so they
-# never clash with Find_structures.py which uses uniprot_ac / protein_name
 with st.sidebar:
     st.header("📝 New query")
     homolog_uniprot_ac = st.text_input("Enter UniProt AC:", default_unp).strip()
@@ -52,7 +50,6 @@ def get_clusters_from_uniprot(uniprot_ac):
     uniref90  = [e["id"] for e in results if e["id"].startswith("UniRef90_")]
     uniref50  = [e["id"] for e in results if e["id"].startswith("UniRef50_")]
     return uniref100, uniref90, uniref50
-
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def get_clusters_entries_with_structures(cluster_ids, uniprot_ac):
@@ -98,7 +95,6 @@ def get_clusters_entries_with_structures(cluster_ids, uniprot_ac):
             })
     return cluster_with_structure
 
-
 @st.cache_data(ttl=3600, show_spinner=False)
 def get_homologs(uniprot_ac):
     # Homologs share the same UniProt ID prefix (before the underscore)
@@ -113,23 +109,49 @@ def get_homologs(uniprot_ac):
     if not uid or "_" not in uid:
         return []
     gene_prefix = uid.split("_")[0]
-    search_url = f"https://rest.uniprot.org/uniprotkb/search?query=id:{gene_prefix}_*+AND+structure_3d:true&format=json&size=100"
+
+    # Search for ALL homologs (no structure filter)
+    search_url = f"https://rest.uniprot.org/uniprotkb/search?query=id:{gene_prefix}_*&format=json&size=100"
     try:
         r2 = requests.get(search_url, timeout=10)
         r2.raise_for_status()
     except requests.RequestException:
         return []
+
     homologs = []
     for entry in r2.json().get("results", []):
         ac = entry.get("primaryAccession", "")
         if ac == uniprot_ac:
             continue
+
+        # Get PDB IDs from XML
+        pdb_url = f"https://rest.uniprot.org/uniprot/{ac}.xml"
+        try:
+            r3 = requests.get(pdb_url, timeout=10)
+            if r3.status_code != 200:
+                pdb_ids = []
+            else:
+                pdb_ids = sorted({
+                    line.split('id="')[1].split('"')[0].upper()
+                    for line in r3.text.splitlines()
+                    if 'dbReference type="PDB"' in line
+                })
+        except Exception:
+            pdb_ids = []
+
+        pdb_str = ", ".join(pdb_ids) if pdb_ids else ""
+
         homologs.append({
             "UniProt AC": ac,
             "UniProt ID": entry.get("uniProtkbId", ""),
+            "PDB IDs": pdb_str,
+            "_pdb_count": len(pdb_ids)  # Temporary field for sorting
         })
-    return homologs
 
+    homologs_sorted = sorted(homologs, key=lambda x: x["_pdb_count"], reverse=True)
+    for h in homologs_sorted:
+        del h["_pdb_count"]
+    return homologs
 
 # Main
 # -----------------------------------------------------------------------------
@@ -151,9 +173,6 @@ if st.session_state.homolog_fetched:
     homologs = get_homologs(query_ac)
     if homologs:
         df_h = pd.DataFrame(homologs)
-        df_h["UniProt AC"] = df_h["UniProt AC"].apply(
-            lambda ac: f"[{ac}](https://www.uniprot.org/uniprotkb/{ac})"
-        )
         st.dataframe(df_h, hide_index=True, use_container_width=True)
     else:
         st.info("No homologs with structures found.")

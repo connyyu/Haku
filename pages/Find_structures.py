@@ -193,7 +193,7 @@ if st.session_state.get("fs_data"):
     all_pmids = st.session_state.fs_all_pmids
 
     if st.session_state.get("fs_protein_name"):
-        st.markdown(f"**Protein Name**: {st.session_state.fs_protein_name}")
+        st.markdown(f'**Protein Name**: <a href="https://www.uniprot.org/uniprotkb/{uniprot_ac}/entry" target="_blank">{st.session_state.fs_protein_name}</a>', unsafe_allow_html=True)
 
     def highlight_not_available(row):
         return ["background-color: #fffdcd" if row["Available in UniProt"] == "No" else "" for _ in row]
