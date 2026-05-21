@@ -151,7 +151,7 @@ def get_homologs(uniprot_ac):
     homologs_sorted = sorted(homologs, key=lambda x: x["_pdb_count"], reverse=True)
     for h in homologs_sorted:
         del h["_pdb_count"]
-    return homologs
+    return homologs_sorted
 
 # Main
 # -----------------------------------------------------------------------------
@@ -175,7 +175,7 @@ if st.session_state.homolog_fetched:
         df_h = pd.DataFrame(homologs)
         st.dataframe(df_h, hide_index=True, use_container_width=True)
     else:
-        st.info("No homologs with structures found.")
+        st.info("No homologs found.")
     progress.progress(50)
 
     # UniRef90
