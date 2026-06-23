@@ -156,6 +156,8 @@ def clear_old_results():
 
     # Clear old results
     for filename in os.listdir(output_dir):
+        if filename == ".gitkeep":  # don't delete the placeholder
+            continue
         file_path = os.path.join(output_dir, filename)
         try:
             if os.path.isfile(file_path):
@@ -543,7 +545,7 @@ if pymol_name:
 # Use demo_results for default_unp
 
 if uniprot_ac == default_unp:
-    tm_helices_pred, output_dir, pred = read_demo_results()
+    tm_helices_pred, _demo_output_dir, pred = read_demo_results()
 
 if 'uniprot_ac' not in st.session_state:
     st.session_state.uniprot_ac = default_unp
@@ -570,9 +572,12 @@ if fetch_pred_button:
     sequence = fetch_uniprot_sequence(uniprot_ac)
     if sequence is None:
         st.stop()
-    tm_helices_pred, output_dir = run_deeptmhmm_biolib(sequence)
-    if tm_helices_pred is None or output_dir is None:
+    tm_helices_pred, result_dir = run_deeptmhmm_biolib(sequence)
+    if tm_helices_pred is None or result_dir is None:
         st.warning("DeepTMHMM Prediction has failed.")
+    else:
+        output_dir = result_dir
+        st.session_state.output_dir = result_dir
     pred = get_pred_from_file()
 
 st.markdown("<a name='pdb-tmhmm'></a>", unsafe_allow_html=True)
@@ -606,7 +611,8 @@ with col2:
     if uniprot_ac == default_unp:
         gff3_path = os.path.join(demo_dir, "TMRs.gff3")
     else:
-        gff3_path = os.path.join(output_dir, "TMRs.gff3")
+        safe_output_dir = st.session_state.get("output_dir") or output_dir
+        gff3_path = os.path.join(safe_output_dir, "TMRs.gff3")
     if os.path.exists(gff3_path):
         st.markdown("")
         tm_helices, ss_tag = extract_tm_helices(gff3_path)
@@ -635,7 +641,8 @@ with col1:
     if uniprot_ac == default_unp:
         plot_path = os.path.join(demo_dir, "plot.png")
     else:
-        plot_path = os.path.join(output_dir, "plot.png")
+        safe_output_dir = st.session_state.get("output_dir") or output_dir
+        plot_path = os.path.join(safe_output_dir, "plot.png")
     st.markdown("<a name='tmhmm_plot'></a>", unsafe_allow_html=True)
     if os.path.exists(plot_path):
         st.markdown("##### DeepTMHMM Plot")
