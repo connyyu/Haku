@@ -238,6 +238,7 @@ if st.session_state.get("fs_data"):
             pmid_df["Curated in UniProt"] = pmid_df["PMID"].apply(
                 lambda p: "Yes" if p in curated_pmids else "No"
             )
+            pmid_df["PMID"] = pd.to_numeric(pmid_df["PMID"])
             pmid_df = pmid_df.sort_values("PMID", ascending=False)
             st.dataframe(pmid_df.style.apply(highlight_curated, axis=1),
                          hide_index=True, use_container_width=True)
