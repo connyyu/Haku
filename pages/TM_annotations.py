@@ -156,8 +156,6 @@ def clear_old_results():
 
     # Clear old results
     for filename in os.listdir(output_dir):
-        if filename == ".gitkeep":  # don't delete the placeholder
-            continue
         file_path = os.path.join(output_dir, filename)
         try:
             if os.path.isfile(file_path):
